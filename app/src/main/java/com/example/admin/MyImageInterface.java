@@ -1,0 +1,16 @@
+package com.example.admin;
+
+import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+
+public interface MyImageInterface {
+    String IMAGEURL = "https://gatesadmin.000webhostapp.com/";
+    @FormUrlEncoded
+    @POST("file.php")
+    Call<String> getImageData(
+            @Field("name") String name,
+            @Field("image") String image
+    );
+}
