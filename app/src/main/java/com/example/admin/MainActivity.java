@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,16 +25,19 @@ import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText name,email,password;
     private Button btn,btn1;
+    String image;
     private ImageView iv;
     Bitmap bitmap;
     private TextView tv;
@@ -45,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         askForPermissions();
+
+        name = findViewById(R.id.idEdtName);
+        email = findViewById(R.id.idEdtEmail);
+        password = findViewById(R.id.idEdtPassword);
+
         btn = findViewById(R.id.btnUpload);
         btn1=findViewById(R.id.btnSelect);
         iv = findViewById(R.id.imageView);
@@ -95,20 +104,26 @@ public class MainActivity extends AppCompatActivity {
         tv.setText("");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
-        String image = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-        String name = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        image = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        //String name = String.valueOf(Calendar.getInstance().getTimeInMillis());
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MyImageInterface.IMAGEURL)
-                .addConverterFactory(ScalarsConverterFactory.create())
+                .baseUrl(MyAPI.IMAGEURL)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        MyImageInterface myImageInterface = retrofit.create(MyImageInterface.class);
-        Call<String> call = myImageInterface.getImageData(name,image);
-        call.enqueue(new Callback<String>() {
+
+        MyAPI myImageInterface = retrofit.create(MyAPI.class);
+        Call<Model> call = myImageInterface.uploadImageApi(name.getText().toString(),email.getText().toString(),password.getText().toString(),image);
+        call.enqueue(new Callback<Model>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Model> call, Response<Model> response) {
                 progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
+                        name.setText("");
+                        email.setText("");
+                        password.setText("");
+
                         Toast.makeText(MainActivity.this, "Image Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         tv.setText("Image Uploaded Successfully!!");
                         tv.setTextColor(Color.parseColor("#008000"));
@@ -123,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Model> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Error occurred!", Toast.LENGTH_SHORT).show();
                 tv.setText("Error occurred during upload");
