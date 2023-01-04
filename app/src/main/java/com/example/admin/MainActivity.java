@@ -2,6 +2,7 @@ package com.example.admin;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -15,7 +16,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -35,14 +41,16 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int CAMERA_REQUEST_CODE = 102;
     EditText name,email,password;
     private Button btn,btn1;
     String image;
-    private ImageView iv;
+    private ImageView iv, selectedImage;
     Bitmap bitmap;
     private TextView tv;
     private ProgressBar progressBar;
     private final int GALLERY = 1;
+    public static final int CAMERA_PERM_CODE=101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,17 +64,19 @@ public class MainActivity extends AppCompatActivity {
 
         btn = findViewById(R.id.btnUpload);
         btn1=findViewById(R.id.btnSelect);
-        iv = findViewById(R.id.imageView);
+        selectedImage = findViewById(R.id.imageView);
         tv = findViewById(R.id.message);
         progressBar = findViewById(R.id.progressBar);
         tv.setText("");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK,
+
+                askCameraPermission();
+                /*Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), GALLERY);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), GALLERY);*/
             }
         });
 
@@ -77,9 +87,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void askCameraPermission() {
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        }else {
+            openCamera();
+        }
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == CAMERA_PERM_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                //openCamera();
+            }else{
+                Toast.makeText(this, "Camera Permission is Required to Use camera", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void openCamera() {
+
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera, CAMERA_REQUEST_CODE);
+
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        /*super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
@@ -97,13 +135,17 @@ public class MainActivity extends AppCompatActivity {
                     tv.setTextColor(Color.parseColor("#FF0000"));
                 }
             }
+        }*/
+        if(requestCode == CAMERA_REQUEST_CODE){
+             bitmap = (Bitmap) data.getExtras().get("data");
+             selectedImage.setImageBitmap(bitmap);
         }
     }
     private void uploadImageUsingRetrofit(Bitmap bitmap){
         progressBar.setVisibility(View.VISIBLE);
         tv.setText("");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         image = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
         //String name = String.valueOf(Calendar.getInstance().getTimeInMillis());
 
