@@ -3,44 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <ScrollView
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Uploading image to server using Retrofit"
+                android:layout_marginTop="10dp"
+                android:text="Main Gate Entry"
                 android:textAllCaps="true"
-                android:textColor="#000"
+                android:textColor="@color/purple_500"
                 android:textSize="25sp" />
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_baseline_image_24" />
+                android:src="@drawable/image_icon" />
 
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Fill the details"
+                android:textColor="#000"
+                android:textSize="25sp" />
             <EditText
                 android:id="@+id/idEdtName"
                 android:textColor="@color/purple_500"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:background="@drawable/edit_text"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="Enter User Name"
+                android:hint="Enter Name"
                 android:inputType="text" />
 
             <!--edit text for user password-->
@@ -50,41 +63,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="Enter Email"
-                android:inputType="textEmailAddress" />
+                android:hint="Enter Mobile Number"
+                android:inputType="phone" />
 
             <EditText
                 android:id="@+id/idEdtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="Enter Password"
-                android:inputType="textVisiblePassword" />
+                android:hint="Enter Flat Number"
+                android:inputType="number" />
 
-            <Button
-                android:id="@+id/btnUpload"
+            <EditText
+                android:id="@+id/idEdtPasswo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@color/purple_500"
-                android:textColor="#FFFFFF"
-                android:text="Select Image"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:layout_marginStart="10dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Enter Flat Number"
+                android:inputType="number" />
+
+
             <Button
                 android:id="@+id/btnSelect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@color/purple_500"
-                android:textColor="#FFFFFF"
-                android:text="Upload Image"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:background="@drawable/button"
+                android:text="Submit"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -104,5 +121,6 @@
                 android:textColor="#000"
                 android:textSize="20sp" />
         </LinearLayout>
-    </ScrollView>
+
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

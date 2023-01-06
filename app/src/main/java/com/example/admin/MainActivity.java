@@ -1,6 +1,5 @@
 package com.example.admin;
 
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -28,11 +27,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    String[] courses = { "Guest", "Delivery Boy",
+            "Service Boy", "Milk-Man",
+            "Maid", "Newspaper Boy","Others" };
     EditText name,email,password;
-    private Button btn,btn1;
+    private Button upload;
     String image;
-    private ImageView iv, selectedImage;
+    private ImageView selectedImage;
     Bitmap bitmap;
     private TextView tv;
     private ProgressBar progressBar;
@@ -43,22 +44,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         name = findViewById(R.id.idEdtName);
         email = findViewById(R.id.idEdtEmail);
         password = findViewById(R.id.idEdtPassword);
-
-        btn = findViewById(R.id.btnUpload);
-        btn1=findViewById(R.id.btnSelect);
+        upload=findViewById(R.id.btnSelect);
         selectedImage = findViewById(R.id.imageView);
         tv = findViewById(R.id.message);
         progressBar = findViewById(R.id.progressBar);
         tv.setText("");
-        btn.setOnClickListener(new View.OnClickListener() {
+
+
+        selectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-
+            public void onClick(View view) {
                 ImagePicker.with(MainActivity.this)
                         .cameraOnly()
                         .compress(200)                          //Final image size will be less than 1 MB(Optional)
@@ -69,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadImageUsingRetrofit(bitmap);
