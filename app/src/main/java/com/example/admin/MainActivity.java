@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 ImagePicker.with(MainActivity.this)
                         .cameraOnly()
                         .compress(200)                          //Final image size will be less than 1 MB(Optional)
@@ -120,11 +119,13 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Image Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         tv.setText("Image Uploaded Successfully!!");
                         tv.setTextColor(Color.parseColor("#008000"));
-                    } else {
+                    }
+                    else {
                         tv.setText("No response from the server");
                         tv.setTextColor(Color.parseColor("#FF0000"));
                     }
-                }else{
+                }
+                else {
                     tv.setText("Response not successful "+response.toString());
                     tv.setTextColor(Color.parseColor("#FF0000"));
                     Toast.makeText(getApplicationContext(), "Response not successful "+response.toString(), Toast.LENGTH_SHORT).show();
@@ -139,6 +140,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
