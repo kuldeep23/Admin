@@ -1,5 +1,6 @@
 package com.example.admin;
 
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -27,13 +28,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] courses = { "Guest", "Delivery Boy",
-            "Service Boy", "Milk-Man",
-            "Maid", "Newspaper Boy","Others" };
+
     EditText name,email,password;
-    private Button upload;
+    private Button btn,btn1;
     String image;
-    private ImageView selectedImage;
+    private ImageView iv, selectedImage;
     Bitmap bitmap;
     private TextView tv;
     private ProgressBar progressBar;
@@ -44,19 +43,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         name = findViewById(R.id.idEdtName);
         email = findViewById(R.id.idEdtEmail);
         password = findViewById(R.id.idEdtPassword);
-        upload=findViewById(R.id.btnSelect);
+
+        btn = findViewById(R.id.btnUpload);
+        btn1=findViewById(R.id.btnSelect);
         selectedImage = findViewById(R.id.imageView);
         tv = findViewById(R.id.message);
         progressBar = findViewById(R.id.progressBar);
         tv.setText("");
-
-
-        selectedImage.setOnClickListener(new View.OnClickListener() {
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+
                 ImagePicker.with(MainActivity.this)
                         .cameraOnly()
                         .compress(200)                          //Final image size will be less than 1 MB(Optional)
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        upload.setOnClickListener(new View.OnClickListener() {
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadImageUsingRetrofit(bitmap);
@@ -118,11 +119,13 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Image Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         tv.setText("Image Uploaded Successfully!!");
                         tv.setTextColor(Color.parseColor("#008000"));
-                    } else {
+                    }
+                    else {
                         tv.setText("No response from the server");
                         tv.setTextColor(Color.parseColor("#FF0000"));
                     }
-                }else{
+                }
+                else {
                     tv.setText("Response not successful "+response.toString());
                     tv.setTextColor(Color.parseColor("#FF0000"));
                     Toast.makeText(getApplicationContext(), "Response not successful "+response.toString(), Toast.LENGTH_SHORT).show();
@@ -137,6 +140,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
