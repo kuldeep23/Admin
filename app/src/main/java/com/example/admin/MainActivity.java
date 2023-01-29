@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         MyAPI myImageInterface = retrofit.create(MyAPI.class);
-        Call<Model> call = myImageInterface.uploadImageApi(name.getText().toString(),email.getText().toString(),password.getText().toString(),image);
+        Call<Model> call = myImageInterface.uploadImageApi(name.getText().toString(),
+                email.getText().toString(),password.getText().toString(),image);
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
