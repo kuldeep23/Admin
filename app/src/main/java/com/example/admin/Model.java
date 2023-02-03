@@ -1,47 +1,56 @@
 package com.example.admin;
 
 public class Model {
-    String name, email, password, image;
+    String visitortype, visitorname, visitormobile, visitorflat, visitorimage;
 
     public Model() {
     }
 
-    public Model(String name, String email, String password, String image) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.image = image;
+    public Model(String visitortype, String visitorname, String visitormobile, String visitorflat, String visitorimage) {
+        this.visitortype = visitortype;
+        this.visitorname = visitorname;
+        this.visitormobile = visitormobile;
+        this.visitorflat = visitorflat;
+        this.visitorimage = visitorimage;
     }
 
-    public String getName() {
-        return name;
+    public String getVisitortype() {
+        return visitortype;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVisitortype(String visitortype) {
+        this.visitortype = visitortype;
     }
 
-    public String getEmail() {
-        return email;
+    public String getVisitorname() {
+        return visitorname;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setVisitorname(String visitorname) {
+        this.visitorname = visitorname;
     }
 
-    public String getPassword() {
-        return password;
+    public String getVisitormobile() {
+        return visitormobile;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setVisitormobile(String visitormobile) {
+        this.visitormobile = visitormobile;
     }
 
-    public String getImage() {
-        return image;
+    public String getVisitorflat() {
+        return visitorflat;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setVisitorflat(String visitorflat) {
+        this.visitorflat = visitorflat;
+    }
+
+    public String getVisitorimage() {
+        return visitorimage;
+    }
+
+    public void setVisitorimage(String visitorimage) {
+        this.visitorimage = visitorimage;
     }
 }

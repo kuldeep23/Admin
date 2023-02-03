@@ -40,56 +40,103 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginLeft="15dp"
                 android:text="Fill the details"
                 android:textColor="#000"
-                android:textSize="25sp" />
-            <EditText
-                android:id="@+id/idEdtName"
-                android:textColor="@color/purple_500"
+                android:textSize="20sp"/>
+            <!--Visitor Type-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textVisitorType"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="Enter Name"
-                android:inputType="text" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:hint="Visitor Type">
 
-            <!--edit text for user password-->
-            <EditText
-                android:id="@+id/idEdtEmail"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/edit_text"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="Enter Mobile Number"
-                android:inputType="phone" />
+                <AutoCompleteTextView
+                    android:id="@+id/EditVisitorType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/idEdtPassword"
+            <!--VisitorName-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textVisitorName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/edit_text"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="Enter Flat Number"
-                android:inputType="number" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:hint="Visitor Name"
+                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+                app:endIconMode="clear_text"
+                app:helperTextTextColor="#FF0000"
+                app:prefixTextColor="@color/purple_500"
+                app:startIconDrawable="@drawable/ic_baseline_person_24">
 
-            <EditText
-                android:id="@+id/idEdtPasswo"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditVisitorName"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType=""
+                    android:textColorHint="#757575"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Visitor Mobile Number-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textMobileNumber"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/edit_text"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="Enter Flat Number"
-                android:inputType="number" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:hint="Mobile Number"
+                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:endIconMode="clear_text"
+                app:helperTextTextColor="#FF0000"
+                app:prefixText="+91-"
+                app:prefixTextColor="@color/purple_500"
+                app:startIconDrawable="@drawable/ic_phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditMoblieNumber"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:textColorHint="#757575"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textVisitorFlatNumber"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:hint="Flat Number"
+                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+                app:endIconMode="clear_text"
+                app:helperTextTextColor="#FF0000"
+                app:prefixTextColor="@color/purple_500"
+                app:startIconDrawable="@drawable/ic_city">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditVisitorFlatNumber"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
             <Button

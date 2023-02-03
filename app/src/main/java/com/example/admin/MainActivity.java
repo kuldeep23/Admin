@@ -8,6 +8,9 @@ import android.provider.MediaStore;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import retrofit2.Call;
@@ -27,7 +32,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] courses = { "Guest", "Delivery Boy",
+    AutoCompleteTextView visitortype;
+    TextInputEditText visitorname, visitorphone, visitorflatno;
+    private static final String[] VISITORTYPE = new String[] {
+            "Guest", "Delivery Boy",
             "Service Boy", "Milk-Man",
             "Maid", "Newspaper Boy","Others" };
     EditText name,email,password;
@@ -38,20 +46,34 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv;
     private ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        name = findViewById(R.id.idEdtName);
+        visitortype = findViewById(R.id.EditVisitorType);
+        visitorname = findViewById(R.id.EditVisitorName);
+        visitorphone = findViewById(R.id.EditMoblieNumber);
+        visitorflatno = findViewById(R.id.EditVisitorFlatNumber);
+
+        /*name = findViewById(R.id.idEdtName);
         email = findViewById(R.id.idEdtEmail);
-        password = findViewById(R.id.idEdtPassword);
+        password = findViewById(R.id.idEdtPassword);*/
+
         upload=findViewById(R.id.btnSelect);
         selectedImage = findViewById(R.id.imageView);
         tv = findViewById(R.id.message);
         progressBar = findViewById(R.id.progressBar);
         tv.setText("");
+
+        ArrayAdapter<String> visitorTypeAdapter = new ArrayAdapter<>(MainActivity.this,R.layout.item_list,VISITORTYPE);
+        visitortype.setAdapter(visitorTypeAdapter);
+        visitortype.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, visitortype.getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         selectedImage.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                         .maxResultSize(300, 300)	//Final image resolution will be less than 1080 x 1080(Optional)
                         /*.crop()*/	    			            //Crop image(Optional), Check Customization for more option
                         .start();
-
             }
         });
 
@@ -74,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -104,17 +124,21 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         MyAPI myImageInterface = retrofit.create(MyAPI.class);
-        Call<Model> call = myImageInterface.uploadImageApi(name.getText().toString(),
-                email.getText().toString(),password.getText().toString(),image);
+        Call<Model> call = myImageInterface.uploadImageApi
+                (visitortype.getText().toString(),
+                visitorname.getText().toString(),
+                visitorphone.getText().toString(),
+                visitorflatno.getText().toString(),
+                        image);
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
                 progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        name.setText("");
+                        /*name.setText("");
                         email.setText("");
-                        password.setText("");
+                        password.setText("");*/
 
                         Toast.makeText(MainActivity.this, "Image Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         tv.setText("Image Uploaded Successfully!!");

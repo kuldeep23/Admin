@@ -10,11 +10,12 @@ import retrofit2.http.POST;
 public interface MyAPI {
     String IMAGEURL = "https://gatesadmin.000webhostapp.com/";
     @FormUrlEncoded
-    @POST("file.php")
+    @POST("jh_visitors.php")
     Call<Model> uploadImageApi(
-            @Field("name") String name,
-            @Field("email") String email,
-            @Field("password") String password,
-            @Field("image") String image
+            @Field("Visitor_Type") String visitortype,
+            @Field("Visitor_Name") String visitorname,
+            @Field("Visitor_Mobile") String visitormobile,
+            @Field("Visitor_Flat_No") String visitorflat,
+            @Field("Visitor_Image") String visitorimage
     );
 }
