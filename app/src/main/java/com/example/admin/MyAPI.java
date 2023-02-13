@@ -1,6 +1,6 @@
 package com.example.admin;
 
-import com.example.admin.Model;
+import com.example.admin.visitors.model.Model;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

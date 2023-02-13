@@ -1,4 +1,4 @@
-package com.example.admin;
+package com.example.admin.visitors.model;
 
 public class Model {
     String visitortype, visitorname, visitormobile, visitorflat, visitorimage;

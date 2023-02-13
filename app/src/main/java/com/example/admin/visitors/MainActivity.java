@@ -1,4 +1,4 @@
-package com.example.admin;
+package com.example.admin.visitors;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,6 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.admin.visitors.model.Model;
+import com.example.admin.MyAPI;
+import com.example.admin.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.textfield.TextInputEditText;
 

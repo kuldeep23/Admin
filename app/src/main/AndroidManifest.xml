@@ -18,7 +18,7 @@
         android:theme="@style/Theme.Admin"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".visitors.MainActivity"
             android:exported="false" />
         <activity
             android:name=".Dashboard"
