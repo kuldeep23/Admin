@@ -1,4 +1,4 @@
-package com.example.admin;
+package com.example.admin.api;
 
 import com.example.admin.visitors.model.Model;
 import retrofit2.Call;
@@ -7,8 +7,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 
-public interface MyAPI {
-    String IMAGEURL = "https://gatesadmin.000webhostapp.com/";
+public interface APISet {
+
     @FormUrlEncoded
     @POST("jh_visitors.php")
     Call<Model> uploadImageApi(

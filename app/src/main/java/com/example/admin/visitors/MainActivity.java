@@ -19,8 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.admin.controller.Controller;
 import com.example.admin.visitors.model.Model;
-import com.example.admin.MyAPI;
+import com.example.admin.api.APISet;
 import com.example.admin.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.textfield.TextInputEditText;
@@ -59,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
         visitorname = findViewById(R.id.EditVisitorName);
         visitorphone = findViewById(R.id.EditMoblieNumber);
         visitorflatno = findViewById(R.id.EditVisitorFlatNumber);
-
-        /*name = findViewById(R.id.idEdtName);
-        email = findViewById(R.id.idEdtEmail);
-        password = findViewById(R.id.idEdtPassword);*/
-
         upload=findViewById(R.id.btnSelect);
         selectedImage = findViewById(R.id.imageView);
         tv = findViewById(R.id.message);
@@ -122,28 +118,22 @@ public class MainActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         image = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MyAPI.IMAGEURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        MyAPI myImageInterface = retrofit.create(MyAPI.class);
-        Call<Model> call = myImageInterface.uploadImageApi
-                (visitortype.getText().toString(),
-                visitorname.getText().toString(),
-                visitorphone.getText().toString(),
-                visitorflatno.getText().toString(),
+        Call<Model> call = Controller
+                .getInstance()
+                .getapi()
+                .uploadImageApi(visitortype.getText().toString(),
+                        visitorname.getText().toString(),
+                        visitorphone.getText().toString(),
+                        visitorflatno.getText().toString(),
                         image);
+
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
                 progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        /*name.setText("");
-                        email.setText("");
-                        password.setText("");*/
-
                         Toast.makeText(MainActivity.this, "Image Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         tv.setText("Image Uploaded Successfully!!");
                         tv.setTextColor(Color.parseColor("#008000"));
@@ -166,6 +156,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
