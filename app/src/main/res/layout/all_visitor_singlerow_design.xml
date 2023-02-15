@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    android:id="@+id/eachCardView"
+    app:cardElevation="8dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@color/teal_700"
+            android:id="@+id/vistor_image"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunil"
+            android:textSize="20dp"
+            android:layout_toRightOf="@+id/vistor_image"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"
+            android:id="@+id/vistor_name"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DELIVERY"
+            android:padding="5dp"
+            android:textSize="11dp"
+            android:background="@color/teal_700"
+            android:textColor="#FFFF"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/vistor_image"
+            android:layout_below="@+id/vistor_name"
+            android:id="@+id/visitor_type"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ENTER"
+            android:padding="5dp"
+            android:textSize="11dp"
+            android:background="#FF5C5C"
+            android:textColor="#FFFF"
+            android:layout_toRightOf="@+id/visitor_type"
+            android:layout_below="@+id/vistor_name"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/vistor_status"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Approved by : "
+            android:textSize="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/vistor_image"
+            android:layout_below="@+id/visitor_type"
+            android:id="@+id/t5"/>
+
+        <TextView
+            android:id="@+id/vistor_approved_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/visitor_type"
+            android:layout_toRightOf="@+id/t5"
+            android:text="Pooja Goyal "
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Timing : "
+            android:textSize="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/vistor_image"
+            android:layout_below="@+id/t5"
+            android:id="@+id/t7"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:04 AM"
+            android:textSize="12dp"
+            android:layout_toRightOf="@+id/t5"
+            android:layout_below="@+id/t5"
+            android:id="@+id/vistor_enter_time"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Date : "
+            android:textSize="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/vistor_image"
+            android:layout_below="@+id/t7"
+            android:id="@+id/t8"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15-05-2023"
+            android:textSize="12dp"
+            android:layout_toRightOf="@+id/t8"
+            android:layout_below="@+id/vistor_enter_time"
+            android:id="@+id/vistor_enter_date"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/vistor_image">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Call"
+                    android:background="#FF5C5C"
+                    android:textColor="#FFF"
+                    android:id="@+id/visitor_call"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Entry Out"
+                    android:background="#FF5C5C"
+                    android:textColor="#FFF"
+                    android:id="@+id/vistor_out"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
