@@ -40,24 +40,13 @@ public class All_Visitor_List extends AppCompatActivity {
                 .getInstance()
                 .getapi()
                 .getVisitorList();
-
         call.enqueue(new Callback<List<AllVisitorListModel>>() {
             @Override
             public void onResponse(Call<List<AllVisitorListModel>> call, Response<List<AllVisitorListModel>> response) {
-                List<AllVisitorListModel> data = response.body();
-
-                if(data!=null){
-    //                recyclerView.setVisibility(View.VISIBLE);
-//                    imageView.setVisibility(View.GONE);
+                    List<AllVisitorListModel> data = response.body();
                     AllVisitorList_Adapter myAdaptar = new AllVisitorList_Adapter(data);
                     recyclerView.setAdapter(myAdaptar);
-                }
-                else {
-      //              recyclerView.setVisibility(View.GONE);
-  //                  imageView.setVisibility(View.VISIBLE);
-                }
             }
-
             @Override
             public void onFailure(Call<List<AllVisitorListModel>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT).show();
