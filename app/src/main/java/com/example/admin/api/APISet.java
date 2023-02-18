@@ -24,6 +24,12 @@ public interface APISet {
             @Field("Visitor_Image") String visitorimage
     );
 
+    @FormUrlEncoded
+    @POST("visitor_out.php")
+    Call<AllVisitorListModel> visitorOut(
+            @Field("visitor_id") String visitorid
+    );
+
     @GET("all_visitors_list.php")
     Call<List<AllVisitorListModel>> getVisitorList();
 }

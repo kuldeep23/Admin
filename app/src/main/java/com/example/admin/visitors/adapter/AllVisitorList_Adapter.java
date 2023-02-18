@@ -1,9 +1,12 @@
 package com.example.admin.visitors.adapter;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +15,30 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.example.admin.Dashboard;
+import com.example.admin.controller.Controller;
+import com.example.admin.visitors.All_Visitor_List;
+import com.example.admin.visitors.MainActivity;
 import com.example.admin.visitors.model.AllVisitorListModel;
 import com.example.admin.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AllVisitorList_Adapter extends RecyclerView.Adapter<AllVisitorList_Adapter.myViewHolder> {
     List<AllVisitorListModel> data;
 
-
+    TextToSpeech textToSpeech;
     public AllVisitorList_Adapter(List<AllVisitorListModel> data) {
         this.data = data;
     }
@@ -57,22 +68,72 @@ public class AllVisitorList_Adapter extends RecyclerView.Adapter<AllVisitorList_
         holder.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), temp.getVisitor_mobile(), Toast.LENGTH_SHORT).show();
                 String phone_number = temp.getVisitor_mobile();
-
-                // Getting instance of Intent with action as ACTION_CALL
-                Intent phone_intent = new Intent(Intent.ACTION_CALL);
-
-                // Set data of Intent through Uri by parsing phone number
+                Intent phone_intent = new Intent(Intent.ACTION_DIAL);
                 phone_intent.setData(Uri.parse("tel:" + phone_number));
                 if (ActivityCompat.checkSelfPermission(view.getContext(),
                         Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         view.getContext().startActivity(phone_intent);
                     return;
                 }
+            }
+        });
+
+        holder.visitorout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Call<AllVisitorListModel> call = Controller
+                        .getInstance()
+                        .getapi()
+                        .visitorOut(temp.getVisitor_id());
+
+                call.enqueue(new Callback<AllVisitorListModel>() {
+                    @Override
+                    public void onResponse(Call<AllVisitorListModel> call, Response<AllVisitorListModel> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                textToSpeech = new TextToSpeech(view.getContext(), new TextToSpeech.OnInitListener() {
+                                    @Override
+                                    public void onInit(int i) {
+                                        if(i != TextToSpeech.ERROR)
+                                            textToSpeech.setLanguage(Locale.US);
+                                        textToSpeech.speak("Visitor Exit Successfully. Do you want to exit more visitor? Then press enter exit more otherwise press okay", TextToSpeech.QUEUE_FLUSH, null);
+                                    }
+                                });
+                                new MaterialAlertDialogBuilder(view.getContext(), R.style.AlertDialogTheme)
+                                        .setTitle("Visitor Out")
+                                        .setMessage("Visitor Out Successfully from the society!!!")
+                                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                Intent goToNextActivity = new Intent(view.getContext(), Dashboard.class);
+                                                view.getContext().startActivity(goToNextActivity);
+
+                                            }
+                                        })
+                                        .setNeutralButton("Exit More", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                Intent goToNextActivity = new Intent(view.getContext(), All_Visitor_List.class);
+                                                view.getContext().startActivity(goToNextActivity);
+                                            }
+                                        })
+                                        .show();
+                            } else {
+                                Toast.makeText(view.getContext(), "Visitor Out Un-Successfull", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(view.getContext(), "Response not successful "+response.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<AllVisitorListModel> call, Throwable t) {
+                        Toast.makeText(view.getContext(), "Error occurred!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
-
         });
     }
 
@@ -86,7 +147,7 @@ public class AllVisitorList_Adapter extends RecyclerView.Adapter<AllVisitorList_
         private ImageView img;
         private TextView name,type,status,approve_by,enter_time,enter_date;
         private CardView cardView;
-        private Button call;
+        private Button call,visitorout;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,7 +159,7 @@ public class AllVisitorList_Adapter extends RecyclerView.Adapter<AllVisitorList_
             enter_time = itemView.findViewById(R.id.vistor_enter_time);
             enter_date = itemView.findViewById(R.id.vistor_enter_date);
             call = itemView.findViewById(R.id.visitor_call);
-
+            visitorout = itemView.findViewById(R.id.visitor_out);
             cardView = itemView.findViewById(R.id.eachCardView);
         }
     }

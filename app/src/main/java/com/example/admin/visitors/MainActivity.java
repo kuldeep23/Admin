@@ -1,11 +1,13 @@
 package com.example.admin.visitors;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,15 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.admin.Dashboard;
 import com.example.admin.controller.Controller;
 import com.example.admin.visitors.model.Model;
 import com.example.admin.api.APISet;
 import com.example.admin.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
     String image;
     private ImageView selectedImage;
     Bitmap bitmap;
-    private TextView tv;
     private ProgressBar progressBar;
+
+    TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +69,7 @@ public class MainActivity extends AppCompatActivity {
         visitorflatno = findViewById(R.id.EditVisitorFlatNumber);
         upload=findViewById(R.id.btnSelect);
         selectedImage = findViewById(R.id.imageView);
-        tv = findViewById(R.id.message);
         progressBar = findViewById(R.id.progressBar);
-        tv.setText("");
 
         ArrayAdapter<String> visitorTypeAdapter = new ArrayAdapter<>(MainActivity.this,R.layout.item_list,VISITORTYPE);
         visitortype.setAdapter(visitorTypeAdapter);
@@ -113,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     private void uploadImageUsingRetrofit(Bitmap bitmap){
 
         progressBar.setVisibility(View.VISIBLE);
-        tv.setText("");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         image = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
@@ -133,17 +137,41 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Model> call, Response<Model> response) {
                 progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
+                    textToSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int i) {
+                            if(i != TextToSpeech.ERROR)
+                                textToSpeech.setLanguage(Locale.US);
+                                textToSpeech.speak("Entry Successfull. Do you want to enter more visitor? Then press enter more otherwise press okay", TextToSpeech.QUEUE_FLUSH, null);
+                        }
+                    });
                     if (response.body() != null) {
-                        Toast.makeText(MainActivity.this, "Image Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
-                        tv.setText("Image Uploaded Successfully!!");
-                        tv.setTextColor(Color.parseColor("#008000"));
+
+                        new MaterialAlertDialogBuilder(MainActivity.this, R.style.AlertDialogTheme)
+                                .setTitle("Visitor In")
+                                .setMessage("Visitor successfully enter in the society!!!")
+                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent goToNextActivity = new Intent(getApplicationContext(), Dashboard.class);
+                                        startActivity(goToNextActivity);
+                                        finish();
+                                    }
+                                })
+                                .setNeutralButton("Enter More", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent goToNextActivity = new Intent(getApplicationContext(),MainActivity.class);
+                                        startActivity(goToNextActivity);
+                                        finish();
+                                    }
+                                })
+                                .show();
+
                     } else {
-                        tv.setText("No response from the server");
-                        tv.setTextColor(Color.parseColor("#FF0000"));
+                        Toast.makeText(MainActivity.this, "Image Uploaded Failed!!", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    tv.setText("Response not successful "+response.toString());
-                    tv.setTextColor(Color.parseColor("#FF0000"));
                     Toast.makeText(getApplicationContext(), "Response not successful "+response.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -151,8 +179,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<Model> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Error occurred!", Toast.LENGTH_SHORT).show();
-                tv.setText("Error occurred during upload");
-                tv.setTextColor(Color.parseColor("#FF0000"));
             }
         });
     }

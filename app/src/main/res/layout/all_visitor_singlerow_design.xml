@@ -148,10 +148,10 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Entry Out"
+                    android:text="Visitor Out"
                     android:background="#FF5C5C"
                     android:textColor="#FFF"
-                    android:id="@+id/vistor_out"/>
+                    android:id="@+id/visitor_out"/>
             </RelativeLayout>
         </LinearLayout>
 

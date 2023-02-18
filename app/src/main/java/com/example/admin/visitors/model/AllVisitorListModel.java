@@ -2,12 +2,13 @@ package com.example.admin.visitors.model;
 
 public class AllVisitorListModel {
 
-    String visitor_name, visitor_type,visitor_image, visitor_mobile,visitor_status, visitor_approve_by, visitor_enter_time, visitor_enter_date;
+    String visitor_id, visitor_name, visitor_type,visitor_image, visitor_mobile,visitor_status, visitor_approve_by, visitor_enter_time, visitor_enter_date;
 
     public AllVisitorListModel() {
     }
 
-    public AllVisitorListModel(String visitor_name, String visitor_type, String visitor_image, String visitor_mobile, String visitor_status, String visitor_approve_by, String visitor_enter_time, String visitor_enter_date) {
+    public AllVisitorListModel(String visitor_id, String visitor_name, String visitor_type, String visitor_image, String visitor_mobile, String visitor_status, String visitor_approve_by, String visitor_enter_time, String visitor_enter_date) {
+        this.visitor_id = visitor_id;
         this.visitor_name = visitor_name;
         this.visitor_type = visitor_type;
         this.visitor_image = visitor_image;
@@ -16,6 +17,14 @@ public class AllVisitorListModel {
         this.visitor_approve_by = visitor_approve_by;
         this.visitor_enter_time = visitor_enter_time;
         this.visitor_enter_date = visitor_enter_date;
+    }
+
+    public String getVisitor_id() {
+        return visitor_id;
+    }
+
+    public void setVisitor_id(String visitor_id) {
+        this.visitor_id = visitor_id;
     }
 
     public String getVisitor_name() {
