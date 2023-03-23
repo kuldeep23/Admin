@@ -82,7 +82,7 @@
                     style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType=""
+                    android:inputType="textCapSentences"
                     android:textColorHint="#757575"
                     tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>

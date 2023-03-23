@@ -82,57 +82,82 @@ public class AllVisitorList_Adapter extends RecyclerView.Adapter<AllVisitorList_
         holder.visitorout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Call<AllVisitorListModel> call = Controller
-                        .getInstance()
-                        .getapi()
-                        .visitorOut(temp.getVisitor_id());
-
-                call.enqueue(new Callback<AllVisitorListModel>() {
+                textToSpeech = new TextToSpeech(view.getContext(), new TextToSpeech.OnInitListener() {
                     @Override
-                    public void onResponse(Call<AllVisitorListModel> call, Response<AllVisitorListModel> response) {
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                textToSpeech = new TextToSpeech(view.getContext(), new TextToSpeech.OnInitListener() {
-                                    @Override
-                                    public void onInit(int i) {
-                                        if(i != TextToSpeech.ERROR)
-                                            textToSpeech.setLanguage(Locale.US);
-                                        textToSpeech.speak("Visitor Exit Successfully. Do you want to exit more visitor? Then press enter exit more otherwise press okay", TextToSpeech.QUEUE_FLUSH, null);
-                                    }
-                                });
-                                new MaterialAlertDialogBuilder(view.getContext(), R.style.AlertDialogTheme)
-                                        .setTitle("Visitor Out")
-                                        .setMessage("Visitor Out Successfully from the society!!!")
-                                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                Intent goToNextActivity = new Intent(view.getContext(), Dashboard.class);
-                                                view.getContext().startActivity(goToNextActivity);
-
-                                            }
-                                        })
-                                        .setNeutralButton("Exit More", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                Intent goToNextActivity = new Intent(view.getContext(), All_Visitor_List.class);
-                                                view.getContext().startActivity(goToNextActivity);
-                                            }
-                                        })
-                                        .show();
-                            } else {
-                                Toast.makeText(view.getContext(), "Visitor Out Un-Successfull", Toast.LENGTH_SHORT).show();
-                            }
-                        }else{
-                            Toast.makeText(view.getContext(), "Response not successful "+response.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<AllVisitorListModel> call, Throwable t) {
-                        Toast.makeText(view.getContext(), "Error occurred!", Toast.LENGTH_SHORT).show();
+                    public void onInit(int i) {
+                        if(i != TextToSpeech.ERROR)
+                            textToSpeech.setLanguage(Locale.US);
+                        textToSpeech.speak("Do you want to exit this visitor? Then press enter yes otherwise press cancel", TextToSpeech.QUEUE_FLUSH, null);
                     }
                 });
 
+                new MaterialAlertDialogBuilder(view.getContext(), R.style.AlertDialogTheme)
+                        .setTitle("Visitor Out")
+                        .setMessage("Do you want exit this visitor??")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                Call<AllVisitorListModel> call = Controller
+                                        .getInstance()
+                                        .getapi()
+                                        .visitorOut(temp.getVisitor_id());
+
+                                call.enqueue(new Callback<AllVisitorListModel>() {
+                                    @Override
+                                    public void onResponse(Call<AllVisitorListModel> call, Response<AllVisitorListModel> response) {
+                                        if (response.isSuccessful()) {
+                                            if (response.body() != null) {
+                                                textToSpeech = new TextToSpeech(view.getContext(), new TextToSpeech.OnInitListener() {
+                                                    @Override
+                                                    public void onInit(int i) {
+                                                        if(i != TextToSpeech.ERROR)
+                                                            textToSpeech.setLanguage(Locale.US);
+                                                        textToSpeech.speak("Visitor Exit Successfully. Do you want to exit more visitor? Then press enter exit more otherwise press no", TextToSpeech.QUEUE_FLUSH, null);
+                                                    }
+                                                });
+                                                new MaterialAlertDialogBuilder(view.getContext(), R.style.AlertDialogTheme)
+                                                        .setTitle("Visitor Out")
+                                                        .setMessage("Visitor Out Successfully from the society!!!")
+                                                        .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                                Intent goToNextActivity = new Intent(view.getContext(), Dashboard.class);
+                                                                view.getContext().startActivity(goToNextActivity);
+
+                                                            }
+                                                        })
+                                                        .setNeutralButton("Exit More", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                                Intent goToNextActivity = new Intent(view.getContext(), All_Visitor_List.class);
+                                                                view.getContext().startActivity(goToNextActivity);
+                                                            }
+                                                        })
+                                                        .show();
+                                            } else {
+                                                Toast.makeText(view.getContext(), "Visitor Out Un-Successfull", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }else{
+                                            Toast.makeText(view.getContext(), "Response not successful "+response.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<AllVisitorListModel> call, Throwable t) {
+                                        Toast.makeText(view.getContext(), "Error occurred!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        })
+                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent goToNextActivity = new Intent(view.getContext(), All_Visitor_List.class);
+                                view.getContext().startActivity(goToNextActivity);
+                            }
+                        })
+                        .show();
             }
         });
     }
