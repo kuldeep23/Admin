@@ -19,13 +19,13 @@
         android:theme="@style/Theme.Admin"
         tools:targetApi="31">
         <activity
-            android:name=".visitors.All_Visitor_List"
+            android:name="my.securegates.admin.visitors.All_Visitor_List"
             android:exported="false" />
         <activity
-            android:name=".visitors.MainActivity"
+            android:name="my.securegates.admin.visitors.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Dashboard"
+            android:name="my.securegates.admin.Dashboard"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

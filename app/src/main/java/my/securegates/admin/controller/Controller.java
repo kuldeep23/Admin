@@ -1,6 +1,6 @@
-package com.example.admin.controller;
+package my.securegates.admin.controller;
 
-import com.example.admin.api.APISet;
+import my.securegates.admin.api.APISet;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -1,10 +1,9 @@
-package com.example.admin.visitors.adapter;
+package my.securegates.admin.visitors.adapter;
 
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
@@ -20,12 +19,11 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.example.admin.Dashboard;
-import com.example.admin.controller.Controller;
-import com.example.admin.visitors.All_Visitor_List;
-import com.example.admin.visitors.MainActivity;
-import com.example.admin.visitors.model.AllVisitorListModel;
-import com.example.admin.R;
+import my.securegates.admin.Dashboard;
+import my.securegates.admin.controller.Controller;
+import my.securegates.admin.visitors.All_Visitor_List;
+import my.securegates.admin.visitors.model.AllVisitorListModel;
+import com.securegates.admin.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;

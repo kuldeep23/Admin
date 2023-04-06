@@ -1,7 +1,7 @@
-package com.example.admin.api;
+package my.securegates.admin.api;
 
-import com.example.admin.visitors.model.AllVisitorListModel;
-import com.example.admin.visitors.model.Model;
+import my.securegates.admin.visitors.model.AllVisitorListModel;
+import my.securegates.admin.visitors.model.Model;
 
 import java.util.List;
 

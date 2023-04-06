@@ -1,4 +1,4 @@
-package com.example.admin;
+package my.securegates.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.admin.visitors.All_Visitor_List;
-import com.example.admin.visitors.MainActivity;
+import com.securegates.admin.R;
+
+import my.securegates.admin.visitors.All_Visitor_List;
+import my.securegates.admin.visitors.MainActivity;
 
 public class Dashboard extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.admin.visitors.model;
+package my.securegates.admin.visitors.model;
 
 public class Model {
     String visitortype, visitorname, visitormobile, visitorflat, visitorimage;

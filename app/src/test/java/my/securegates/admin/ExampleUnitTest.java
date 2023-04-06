@@ -1,4 +1,4 @@
-package com.example.admin;
+package my.securegates.admin;
 
 import org.junit.Test;
 

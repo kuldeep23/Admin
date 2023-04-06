@@ -1,18 +1,17 @@
-package com.example.admin.visitors;
+package my.securegates.admin.visitors;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.admin.R;
-import com.example.admin.controller.Controller;
-import com.example.admin.visitors.adapter.AllVisitorList_Adapter;
-import com.example.admin.visitors.model.AllVisitorListModel;
+import com.securegates.admin.R;
+import my.securegates.admin.controller.Controller;
+import my.securegates.admin.visitors.adapter.AllVisitorList_Adapter;
+import my.securegates.admin.visitors.model.AllVisitorListModel;
 
 import java.util.List;
 

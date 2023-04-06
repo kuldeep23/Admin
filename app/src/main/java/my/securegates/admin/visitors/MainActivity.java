@@ -1,9 +1,8 @@
-package com.example.admin.visitors;
+package my.securegates.admin.visitors;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
@@ -17,15 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.admin.Dashboard;
-import com.example.admin.controller.Controller;
-import com.example.admin.visitors.model.Model;
-import com.example.admin.api.APISet;
-import com.example.admin.R;
+import my.securegates.admin.Dashboard;
+import my.securegates.admin.controller.Controller;
+import my.securegates.admin.visitors.model.Model;
+
+import com.securegates.admin.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -37,8 +35,6 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -140,10 +136,11 @@ public class MainActivity extends AppCompatActivity {
                     textToSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
                         @Override
                         public void onInit(int i) {
-                            if(i != TextToSpeech.ERROR)
+                            if(i != TextToSpeech.ERROR) {
                                 textToSpeech.setLanguage(Locale.US);
                                 textToSpeech.speak("Entry Successfull. Do you want to enter more visitor? Then press enter more otherwise press okay", TextToSpeech.QUEUE_FLUSH, null);
-                        }
+                            }
+                            }
                     });
                     if (response.body() != null) {
 
