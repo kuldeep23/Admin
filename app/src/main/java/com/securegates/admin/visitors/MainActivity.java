@@ -1,4 +1,4 @@
-package my.securegates.admin.visitors;
+package com.securegates.admin.visitors;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,9 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import my.securegates.admin.Dashboard;
-import my.securegates.admin.controller.Controller;
-import my.securegates.admin.visitors.model.Model;
+import com.securegates.admin.Dashboard;
+import com.securegates.admin.controller.Controller;
+import com.securegates.admin.visitors.model.Model;
 
 import com.securegates.admin.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;

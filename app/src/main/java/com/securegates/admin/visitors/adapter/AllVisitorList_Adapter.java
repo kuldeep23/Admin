@@ -1,4 +1,4 @@
-package my.securegates.admin.visitors.adapter;
+package com.securegates.admin.visitors.adapter;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -19,10 +19,10 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import my.securegates.admin.Dashboard;
-import my.securegates.admin.controller.Controller;
-import my.securegates.admin.visitors.All_Visitor_List;
-import my.securegates.admin.visitors.model.AllVisitorListModel;
+import com.securegates.admin.Dashboard;
+import com.securegates.admin.controller.Controller;
+import com.securegates.admin.visitors.All_Visitor_List;
+import com.securegates.admin.visitors.model.AllVisitorListModel;
 import com.securegates.admin.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

@@ -1,4 +1,4 @@
-package my.securegates.admin.visitors.model;
+package com.securegates.admin.visitors.model;
 
 public class AllVisitorListModel {
 

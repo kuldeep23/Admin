@@ -1,4 +1,4 @@
-package my.securegates.admin;
+package com.securegates.admin;
 
 import android.content.Context;
 

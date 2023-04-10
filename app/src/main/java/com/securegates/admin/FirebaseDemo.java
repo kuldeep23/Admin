@@ -1,4 +1,4 @@
-package my.securegates.admin;
+package com.securegates.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.securegates.admin.R;
 
 public class FirebaseDemo extends AppCompatActivity {
 

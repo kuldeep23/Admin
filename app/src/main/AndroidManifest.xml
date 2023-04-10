@@ -19,16 +19,16 @@
         android:theme="@style/Theme.Admin"
         tools:targetApi="31">
         <activity
-            android:name="my.securegates.admin.Dashboard"
+            android:name="com.securegates.admin.Dashboard"
             android:exported="false" />
         <activity
-            android:name="my.securegates.admin.visitors.All_Visitor_List"
+            android:name="com.securegates.admin.visitors.All_Visitor_List"
             android:exported="false" />
         <activity
-            android:name="my.securegates.admin.visitors.MainActivity"
+            android:name="com.securegates.admin.visitors.MainActivity"
             android:exported="false" />
         <activity
-            android:name="my.securegates.admin.FirebaseDemo"
+            android:name="com.securegates.admin.FirebaseDemo"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,7 +52,7 @@
         </provider>
 
         <service
-            android:name="my.securegates.admin.MyFirebaseMessagingService"
+            android:name="com.securegates.admin.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

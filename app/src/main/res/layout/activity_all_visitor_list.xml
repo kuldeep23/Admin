@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.securegates.admin.visitors.All_Visitor_List">
+    tools:context="com.securegates.admin.visitors.All_Visitor_List">
 
     <androidx.recyclerview.widget.RecyclerView
         android:orientation="horizontal"
